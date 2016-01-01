@@ -23,7 +23,7 @@ done = False #used to determine if image is done
 img_name = "test.png" #what to save the image as
 
 
-#small class to clear up some of the code
+#small class to make the code more explicit
 class Pixel:
     def __init__(self):
         this.x = 0
@@ -41,7 +41,7 @@ def generateRandomRGB():
     return (red, blue, green)
 
 
-#increments the current pixel value
+#increments the current pixel value (takes height and width of image into account)
 def incPixel():
     global current_pixel, width, height, done
     if current_pixel.x is width-1:
@@ -55,7 +55,7 @@ def incPixel():
          
 
 #sets a number of starting pixels to randomized RGBA values equal to the order of the Markov chain
-def orderedRandomPixels():
+def setStartingPixels():
     global img, order
     for x in range(0, order):
         rgb = generateRandomRGB() 
@@ -73,7 +73,7 @@ def setCurrentPixel():
 #calls the above functions in the correct order
 def generateImage():
     global done
-    orderedRandomPixels()
+    setStartingPixels()
     while not done:
         setCurrentPixel()
     img.save(img_name)
