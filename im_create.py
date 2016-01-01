@@ -26,8 +26,8 @@ img_name = "test.png" #what to save the image as
 #small class to make the code more explicit
 class Pixel:
     def __init__(self):
-        this.x = 0
-        this.y = 0
+        self.x = 0
+        self.y = 0
 
 
 current_pixel = Pixel() #the current pixel that needs to be set
@@ -56,7 +56,7 @@ def incPixel():
 
 #sets a number of starting pixels to randomized RGBA values equal to the order of the Markov chain
 def setStartingPixels():
-    global img, order
+    global img, order, current_pixel
     for x in range(0, order):
         rgb = generateRandomRGB() 
         img.putpixel((current_pixel.x, current_pixel.y), (rgb[0], rgb[1], rgb[2]))
@@ -72,11 +72,14 @@ def setCurrentPixel():
 
 #calls the above functions in the correct order
 def generateImage():
-    global done
+    global img, img_name, done
     setStartingPixels()
     while not done:
         setCurrentPixel()
     img.save(img_name)
-    
 
-        
+
+
+
+
+
