@@ -1,5 +1,5 @@
 from PIL import Image
-import collections
+
 
 #represents a "link" in a markov chain for the pixels of an image (RGB format)
 #rs, gs, bs, and als are the red, green, blue, and alpha values respectively (lists)
@@ -86,6 +86,16 @@ def checkDup(arr, target):
                         return True
 
 
+#determines probability of a state transition
+def calcProbability(links):
+        for i in range(0, len(links)):
+                total = links[i].probability
+                for j in range(i, len(links)):
+                        if links[i].compareRGBA(links[j]):
+                                total += links[j].probability
+                links[i].probability = links[i].probability / total
+
+
 #end user function
 #generates the probability table for markov chains of the specified order
 def imageToMarkov(img_name, order):
@@ -95,8 +105,7 @@ def imageToMarkov(img_name, order):
         links = forgeLinks(img, pixels, order)
 
 
-        #calculate probabilities
-        sep = []
+        sep = [] #separated links (used to gather the amount of a single state)
         for i in range(0, len(links)):
                 count = 0 #number of times that the state is seen
                 if not checkDup(sep, links[i]):
@@ -107,14 +116,8 @@ def imageToMarkov(img_name, order):
                         links[i].probability = count
                         sep.append(links[i])
 
-
-        for i in range(0, len(sep)):
-                total = sep[i].probability
-                for j in range(i, len(sep)):
-                        if sep[i].compareRGBA(sep[j]):
-                                total += sep[j].probability
-                sep[i].probability = sep[i].probability / total
-                print(sep[i].probability)
+        calcProbability(sep)
+        return sep
 
 
 imageToMarkov("frog.png", 2)
