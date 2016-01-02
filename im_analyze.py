@@ -119,5 +119,3 @@ def imageToMarkov(img_name, order):
         calcProbability(sep)
         return sep
 
-
-imageToMarkov("frog.png", 2)
