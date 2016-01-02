@@ -142,7 +142,6 @@ def generateImage():
     global img, img_name, done
     
     setStartingPixels()
-    print(pixels_in_order)
     while not done:
         setCurrentPixel()
     img.save(img_name)
