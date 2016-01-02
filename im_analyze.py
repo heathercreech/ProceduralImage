@@ -96,7 +96,7 @@ def calcProbability(links):
                 links[i].probability = links[i].probability / total
 
 
-#end user function
+#the end user function
 #generates the probability table for markov chains of the specified order
 def imageToMarkov(img_name, order):
         img = Image.open(img_name)
